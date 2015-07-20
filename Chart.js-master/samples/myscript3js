@@ -1,0 +1,21 @@
+$.getJSON('t1.json', function(info){
+
+			//a = $.parseJSON(info);
+			console.log(info);
+			var output='';
+			
+			//for each
+			$.each(info, function(key,value){
+				console.log(key);
+				console.log(value);
+				labels.push(key);
+				data.push(value);
+				
+			});
+			console.log(data);
+			console.log(labels);
+
+	});
+	 //getJSON
+console.log(data);
+			console.log(labels);

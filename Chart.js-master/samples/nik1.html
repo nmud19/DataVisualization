@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-1.6.4.min.js"></script>
+			
+		<title>Bar Chart</title>
+		</head>
+	<body>
+		<h1>Frequency of words</h1>
+		<div style="width: 50%">
+			<canvas id="canvas" height="450" width="600"></canvas>
+		</div>
+
+    
+	
+	<ol id="links">
+</ol>
+	<script>
+	//starting cha kachra
+	var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+	var data1= new Array();
+	//var data1 = [2,3,4,6,1,3,7];
+	//data1.sort(function(a, b){return b-a});
+	var label1 = new Array();
+	
+    var wordfreq =
+    [
+    {"word":"The", "Frequency":"45"},
+    {"word":"black", "Frequency":"34"},
+    {"word":"dog", "Frequency":"42"},
+    {"word":"ate", "Frequency":"17"},
+    {"word":"ate1", "Frequency":"74"},
+    {"word":"ate2", "Frequency":"24"},
+    {"word":"Pig","Frequency": "23"}
+	];
+	console.log(wordfreq);
+	//loop over the json object here
+	for (var i1 in wordfreq) 
+	{
+		label1.push(wordfreq[i1].word);		
+		data1.push(wordfreq[i1].Frequency);
+	}
+	var i=0;
+	var j = 0;
+	var temp=0;
+	var temp2;
+	console.log(i1);
+	var labels =new Array();
+	var data =new Array();
+	
+	//call data from json file into this page
+	$.getJSON('t1.json', function(info){
+
+			//a = $.parseJSON(info);
+			console.log(info);
+			var output='';
+			
+			//for each
+			$.each(info, function(key,value){
+				console.log(key);
+				console.log(value);
+				labels.push(key);
+				data.push(value);
+				
+			});
+			console.log(data);
+			console.log(labels);
+
+	});
+	 //getJSON
+console.log(data);
+			console.log(labels);
+	
+	//just intercange the data
+	while(i<i1)
+	{
+		//bubble sort goes here
+		j=0;
+		while(j<i1)
+		{
+			if(data1[j]<data1[j+1])
+			{
+				//since decending order, we shift the variable for greater good :D
+				temp = data1[j];
+				data1[j] = data1[j+1];
+				data1[j+1] = temp;
+				//also change corresponding label
+				temp2 = label1[j];
+				label1[j] = label1[j+1];
+				label1[j+1] = temp2;				
+			}
+			j++;
+		}
+		i++;
+	}
+
+	var barChartData = {
+		labels : label1,
+		datasets : [
+			{
+				fillColor : "rgba(255,0,255,1)",
+				strokeColor : "rgba(220,220,220,0.8)",
+				highlightFill: "rgba(0,0,255,0.3)",
+				highlightStroke: "rgba(0,0,255,1)",
+				data: data1
+			}
+		]
+
+	}
+	window.onload = function(){
+		var ctx = document.getElementById("canvas").getContext("2d");
+		window.myBar = new Chart(ctx).Bar(barChartData, {
+			responsive : true
+		});
+	}
+
+	</script>
+	
+
+	</body>
+	<script src="../Chart.js"></script>
+		
+</html>
